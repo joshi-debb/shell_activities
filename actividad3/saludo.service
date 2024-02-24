@@ -1,0 +1,12 @@
+[Unit]
+Description=Servicio de saludo
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/saludo.sh
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
