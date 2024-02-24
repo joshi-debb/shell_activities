@@ -1,55 +1,66 @@
-Primero se debe crear el scrip en el directorio bin:
+- Primero se debe crear el scrip en el directorio bin:
 
-Abrimos una nueva terminal y ejecutamos el comando: 'cd /usr/local/bin/'
+    - Abrimos una nueva terminal y ejecutamos el comando: 
+    
+            cd /usr/local/bin/
 
-Creamos el archivo con el comando: 'sudo nano saludo.sh'
+    - Creamos el archivo con el comando: 
+        
+            sudo nano saludo.sh
 
-Una vez dentro del archivo pegamos el siguiente codigo:
-'
-#!/bin/bash
-while true; do
-    echo "¡Hola! La fecha actual es: $(date)"
-    sleep 1
-done
-'
-Guardamos: Ctrl+x y confirmamos el nombre del archivo: Y
+    - Una vez dentro del archivo pegamos el siguiente codigo:
 
-Asegurate de otorgar los permisos necesarios:
 
-sudo chmod +x /usr/local/bin/saludo.sh
+            #!/bin/bash
+            while true; do
+                echo "¡Hola! La fecha actual es: $(date)"
+                sleep 1
+            done
 
-Ahora vamos a la siguiente ruta: 'cd /etc/systemd/system/'
+    - Guardamos: Ctrl+x y confirmamos el nombre del archivo: Y
 
-Crearmos el archivo con el comand: 'sudo nano saludo.service'
+    - Otorgamos los permisos necesarios: 
+        
+            sudo chmod +x /usr/local/bin/saludo.sh
 
-Una vez dentro del archivo pegamos el siguiente codigo:
-'
-[Unit]
-Description=Servicio de saludo
-After=network.target
+- Ahora se debe crear el Servicio en el directorio system:
 
-[Service]
-Type=simple
-ExecStart=/usr/local/bin/saludo_script.sh
-Restart=always
-RestartSec=1
+    - Vamos a la siguiente ruta: 
+        
+            cd /etc/systemd/system/
+        
+    - Crearmos el archivo con el comand: 
+        
+            sudo nano saludo.service
 
-[Install]
-WantedBy=multi-user.target
-'
-Guardamos: Ctrl+x y confirmamos el nombre del archivo: Y
+    - Una vez dentro del archivo pegamos el siguiente codigo:
 
-Para habilitar y comenzar el servicio ejecutamos los siguientes comandos:
+            [Unit]
+            Description=Servicio de saludo
+            After=network.target
 
-'sudo systemctl daemon-reload'
-'sudo systemctl restart saludo.service'
-'sudo systemctl status saludo.service'
+            [Service]
+            Type=simple
+            ExecStart=/usr/local/bin/saludo_script.sh
+            Restart=always
+            RestartSec=1
 
-Para verificar los logs del servicio utilizamos el siguiente comando:
+            [Install]
+            WantedBy=multi-user.target
 
-'journalctl -u saludo.service'
+    -   Guardamos: Ctrl+x y confirmamos el nombre del archivo: Y
 
-nota: se debe presionar 'Enter' para ir recargando el log.
+- Por ultimo habilitamos e iniciamos el servicio:
+
+        sudo systemctl daemon-reload
+        sudo systemctl restart saludo.service
+        sudo systemctl status saludo.service
+
+    - Para verificar los logs del servicio utilizamos el siguiente comando:
+
+            journalctl -u saludo.service
+
+    nota: se debe presionar 'Enter' para ir recargando el log.
 
 
 
